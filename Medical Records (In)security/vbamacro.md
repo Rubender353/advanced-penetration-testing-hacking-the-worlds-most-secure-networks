@@ -9,7 +9,7 @@
  https://docs.microsoft.com/en-us/office/vba/language/reference/user-interface-help/open-statement
  
  Another issue I had was with the VBS script below. You will need to put double quotes around quotes in the actual code. This is
- because the VBA Macro won't include the quotes when sending it to the file. for example myPath, "\" should be mypath, ""\"". 
+ because the VBA Macro won't include the quotes when sending it to the file. for example myPath, "\\" should be mypath, ""\\"". 
 
 VBA Macro
 
